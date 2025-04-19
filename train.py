@@ -34,7 +34,7 @@ train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_data, batch_size=32, shuffle=False)
 
 # Load EfficientNet-B0
-model = models.efficientnet_b1(pretrained=True)
+model = models.efficientnet_b2(pretrained=True)
 
 # Freeze base layers
 for param in model.features.parameters():
