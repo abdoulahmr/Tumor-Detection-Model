@@ -1,11 +1,17 @@
 import torch
 from torchvision import models, transforms
 from PIL import Image
+import argparse
 import os
+
+# --- ARGUMENT PARSING ---
+parser = argparse.ArgumentParser(description='Tumor Prediction using EfficientNet-B0')
+parser.add_argument('--image', type=str, required=True, help='Path to the input image')
+args = parser.parse_args()
 
 # --- SETTINGS ---
 model_path = 'D:/Tumor Detection Model/model/efficientnet_tumor_classifier_97.92.pth'
-image_path = 'D:/Tumor Detection Model/11 - Copy (2).png'
+image_path = args.image
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # --- TRANSFORM ---
@@ -36,6 +42,6 @@ with torch.no_grad():
 
 # --- INTERPRETATION ---
 class_names = ['Normal', 'Tumor']
-print(f'🧠 Prediction: {class_names[predicted]}')
+print(f'\n🧠 Prediction: {class_names[predicted]}')
 for i, prob in enumerate(probs):
     print(f'📊 {class_names[i]}: {prob.item() * 100:.2f}%')
